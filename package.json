@@ -2,10 +2,17 @@
   "name": "rxjs-react",
   "version": "0.1.0",
   "private": true,
+  "main": "server/server.js",
   "dependencies": {
+    "auth0-js": "^9.10.0",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
-    "react-scripts": "2.1.5"
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.5",
+    "rxjs": "^6.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
