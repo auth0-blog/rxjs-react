@@ -7,11 +7,8 @@ import Callback from './Components/Callback/Callback';
 import SecuredRoute from './Components/SecuredRoute/SecuredRoute';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      checkingSession: true,
-    }
+  state = {
+    checkingSession: true,
   }
 
   async componentDidMount() {
@@ -30,7 +27,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="h-screen bg-blue-lighter text-center pt-10">
         <Route component={Public} path='/' exact />
         <Route component={Callback} path='/callback' />
         <SecuredRoute path='/protected'

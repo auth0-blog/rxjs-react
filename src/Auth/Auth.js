@@ -4,7 +4,6 @@ import { config } from './config';
 class Auth {
     constructor() {
         this.auth0 = new auth0.WebAuth({
-            // the following three lines MUST be updated
             domain: config.domain,
             audience: config.audience,
             clientID: config.clientID,
@@ -13,20 +12,16 @@ class Auth {
             scope: 'openid profile'
         });
 
-        this.getProfile = this.getProfile.bind(this);
-        this.handleAuthentication = this.handleAuthentication.bind(this);
+        // this.getProfile = this.getProfile.bind(this);
         this.isAuthenticated = this.isAuthenticated.bind(this);
+        this.handleAuthentication = this.handleAuthentication.bind(this);
         this.signIn = this.signIn.bind(this);
         this.signOut = this.signOut.bind(this);
     }
 
-    getProfile() {
-        return this.profile;
-    }
-
-    getIdToken() {
-        return this.idToken;
-    }
+    // getProfile() {
+    //     return this.profile;
+    // }
 
     isAuthenticated() {
         return new Date().getTime() < this.expiresAt;
@@ -59,7 +54,7 @@ class Auth {
     signOut() {
         this.auth0.logout({
             returnTo: 'http://localhost:3000',
-            clientID: 'PVafIu9Q5QN65DiPByAFvCCJryY7n432',
+            clientID: config.clientID,
         });
     }
 

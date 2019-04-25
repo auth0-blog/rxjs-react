@@ -1,39 +1,7 @@
-// import React from 'react';
-// import { ajax } from 'rxjs/ajax';
-// import { Observable, fromPromise } from 'rxjs';
-// import { pluck } from 'rxjs/operators';
-
-// function Protected() {
-//     // const [swapi, setSwapi] = useState();
-
-//     let httpObservables$ = ajax.getJSON(`https://swapi.co/api/films/`);
-
-//     httpObservables$.pipe(
-//         pluck("title")
-//     )
-//     httpObservables$.subscribe(
-//         (value) => console.log(value.results),
-//         (err) => console.log(err),
-//         () => console.log("All Done!")
-//     )
-
-
-
-
-//     return (
-//         <div>
-//             <p></p>
-//         </div>
-//     );
-
-// }
-
-// export default Protected;
-
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Subject, from } from 'rxjs';
 import { filter, flatMap, debounceTime } from 'rxjs/operators';
+import Auth0 from '../../Auth/Auth';
 
 class Protected extends Component {
     input$ = new Subject();
@@ -64,22 +32,23 @@ class Protected extends Component {
 
         return (
             <div>
-                <p>
-                    Type in any GitHub user to view information
-        </p>
+                <p className="mb-10 text-xl">
+                    Type in any GitHub username to view information
+                </p>
+
                 {user && (
-                    <div>
-                        <img src={user.avatar_url} />
-                        <p>{user.login}</p>
+                    <div className="mb-4">
+                        <img src={user.avatar_url} alt="GitHub Avatar" width="200" className="shadow rounded mb-2" />
+                        <h3 className="text-2xl text-blue-darker">{user.login}</h3>
                     </div>
                 )}
-                <input onChange={e => this.input$.next(e.target.value)} />
+                <input onChange={e => this.input$.next(e.target.value)} placeholder="GitHub Username Here" className="py-3 px-4 rounded shadow w-64" />
+                <button onClick={() => Auth0.signOut()} className="mx-auto mt-5 p-2 text-xs block rounded bg-blue-lightest text-blue-darker hover:bg-blue-lightest">
+                    Log Out
+                </button>
             </div>
         );
     }
 }
-
-// const rootElement = document.getElementById('root');
-// ReactDOM.render(<App />, rootElement);
 
 export default Protected;
