@@ -10,15 +10,15 @@ class Auth {
         scope: 'openid profile'
     });
 
-    isAuthenticated = () => {
+    isAuthenticated() {
         return new Date().getTime() < this.expiresAt;
     }
 
-    signIn = () => {
+    signIn() {
         this.auth0.authorize();
     }
 
-    handleAuthentication = () => {
+    handleAuthentication() {
         return new Promise((resolve, reject) => {
             this.auth0.parseHash((err, authResult) => {
                 if (err) return reject(err);
@@ -31,21 +31,21 @@ class Auth {
         })
     }
 
-    setSession = (authResult) => {
+    setSession(authResult) {
         this.idToken = authResult.idToken;
         this.profile = authResult.idTokenPayload;
         // set the time that the id token will expire at
         this.expiresAt = authResult.idTokenPayload.exp * 1000;
     }
 
-    signOut = () => {
+    signOut() {
         this.auth0.logout({
             returnTo: 'http://localhost:3000',
             clientID: config.clientID,
         });
     }
 
-    silentAuth = () => {
+    silentAuth() {
         return new Promise((resolve, reject) => {
             this.auth0.checkSession({}, (err, authResult) => {
                 if (err) return reject(err);
