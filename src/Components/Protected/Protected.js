@@ -24,7 +24,7 @@ class Protected extends Component {
 
     getGithubUser = username =>
         fetch(
-            `https://api.github.com/users/${username}?access_token=99b6ae2c1ac6541bd90286841e3cb3f41e5206f1`
+            `https://api.github.com/users/${username}`
         ).then(res => res.json());
 
     render() {

@@ -2,36 +2,23 @@ import auth0 from 'auth0-js';
 import { config } from './config';
 
 class Auth {
-    constructor() {
-        this.auth0 = new auth0.WebAuth({
-            domain: config.domain,
-            audience: config.audience,
-            clientID: config.clientID,
-            redirectUri: config.redirectUri,
-            responseType: 'id_token',
-            scope: 'openid profile'
-        });
+    auth0 = new auth0.WebAuth({
+        domain: config.domain,
+        clientID: config.clientID,
+        redirectUri: config.redirectUri,
+        responseType: 'id_token',
+        scope: 'openid profile'
+    });
 
-        // this.getProfile = this.getProfile.bind(this);
-        this.isAuthenticated = this.isAuthenticated.bind(this);
-        this.handleAuthentication = this.handleAuthentication.bind(this);
-        this.signIn = this.signIn.bind(this);
-        this.signOut = this.signOut.bind(this);
-    }
-
-    // getProfile() {
-    //     return this.profile;
-    // }
-
-    isAuthenticated() {
+    isAuthenticated = () => {
         return new Date().getTime() < this.expiresAt;
     }
 
-    signIn() {
+    signIn = () => {
         this.auth0.authorize();
     }
 
-    handleAuthentication() {
+    handleAuthentication = () => {
         return new Promise((resolve, reject) => {
             this.auth0.parseHash((err, authResult) => {
                 if (err) return reject(err);
@@ -44,21 +31,21 @@ class Auth {
         })
     }
 
-    setSession(authResult) {
+    setSession = (authResult) => {
         this.idToken = authResult.idToken;
         this.profile = authResult.idTokenPayload;
         // set the time that the id token will expire at
         this.expiresAt = authResult.idTokenPayload.exp * 1000;
     }
 
-    signOut() {
+    signOut = () => {
         this.auth0.logout({
             returnTo: 'http://localhost:3000',
             clientID: config.clientID,
         });
     }
 
-    silentAuth() {
+    silentAuth = () => {
         return new Promise((resolve, reject) => {
             this.auth0.checkSession({}, (err, authResult) => {
                 if (err) return reject(err);
