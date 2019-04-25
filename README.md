@@ -29,6 +29,14 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ### `npm run eject`
 
+### `npm install --save auth0-js react-router-dom`
+
+These are the two additional libraries needed for the project.
+
+## Config.js
+
+Navigate to `config.sample.js` to view an example of what the `src/Auth/config.js` file should look like. Be sure to put in your own Auth0 credentials from http://auth0.com. Put the file path in the `.gitignore` file.
+
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
 If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
